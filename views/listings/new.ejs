@@ -1,45 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UrbanNest</title>
-</head>
-<body>
-    <h3>Add New Listing</h3>
-    <form method="POST" action="/listings">
-        <input 
-            type="text" 
-            name="listing[title]" 
-            placeholder="enter title">
-        <br><br>
-        <textarea 
-            type="text" 
-            name="listing[description]" 
-            placeholder="enter description">
-        </textarea>
-        <br><br>
-        <input 
-            type="text" 
-            name="listing[image]" 
-            placeholder="enter image URL/Link">
-        <br><br>
-        <input 
-            type="number" 
-            name="listing[price]" 
-            placeholder="enter price">
-        <br><br>
-        <input 
-            type="text" 
-            name="listing[location]" 
-            placeholder="enter location">
-        <br><br>
-        <input 
-            type="text" 
-            name="listing[country]" 
-            placeholder="enter country">
-        <br><br>
-        <button>Add</button>
-    </form>
-</body>
-</html>
+<% layout("/layouts/boilerplate.ejs") %>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <br>
+            <h3>Add New Listing</h3>
+            <form method="POST" action="/listings">
+                <!-- title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="listing[title]" placeholder="Add Title" class="form-control">
+                </div>
+                <!-- description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea type="text" name="listing[description]" class="form-control"></textarea>
+                </div>
+                <!-- img-url -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="text" name="listing[image]" placeholder="Enter Image URL/Link" class="form-control">
+                </div>
+
+                <div class="row">
+                <!-- price -->
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" name="listing[price]" placeholder="Enter Price" class="form-control">
+                </div>
+                <!-- country -->
+                <div class="mb-3 col-md-8">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" name="listing[country]" placeholder="Enter Country" class="form-control">
+                </div>
+                </div>
+
+                <!-- location -->
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="listing[location]" placeholder="Enter Location" class="form-control">
+                </div>
+                <br>
+                <button class="btn btn-dark add-btn">Add</button>
+                <br><br>
+            </form>
+        </div>
+    </div>
