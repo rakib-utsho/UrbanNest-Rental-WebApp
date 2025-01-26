@@ -12,6 +12,7 @@ const path = require("path");
 // set path and others uses
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({extended: true}));
 
 // Connect MongoDB Database
 const MONGO_URL = "mongodb://127.0.0.1:27017/urbannest";
@@ -34,11 +35,19 @@ app.get("/", (req, res)=>{
     res.send("Root Route");
 });
 
-// index route
+// Index route
 app.get("/listings", async (req, res)=> {
     const allListings = await Listing.find({});
     res.render("listings/index.ejs",{allListings});
 });
+
+// Show Route
+app.get("/listings/:id", async (req, res) => {
+    let{id} = req.params;
+    const listing = await Listing.findById(id);
+    res.render("listings/show.ejs", {listing});
+});
+
 // test route
 // app.get("/testlisting", async (req,res)=>{
 //     let sampleListing = new Listing({
