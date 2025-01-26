@@ -93,8 +93,24 @@ body{
     background-color: #fff;
 }
 
-/* New Page */
-.add-btn{
+/* New Page + Edit page btn */
+.add-btn,
+.edit-btn{
     background-color: #ff932c !important;
     border: none !important;
+}
+
+/* Show Page */
+.show-img{
+    height: 30vh;
+}
+
+.btns{
+    display: flex;
+
+}
+
+.show-card{
+    padding-left: 0;
+    padding-right: 0;
 }
