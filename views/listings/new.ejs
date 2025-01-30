@@ -2,40 +2,69 @@
     <div class="row mt-3">
         <div class="col-8 offset-2">
             <h3>Add New Listing</h3>
-            <form method="POST" action="/listings">
+            <form method="POST" action="/listings" class="needs-validation" novalidate>
                 <!-- title -->
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
-                    <input type="text" name="listing[title]" placeholder="Add Title" class="form-control">
+                    <input 
+                        type="text" 
+                        name="listing[title]" 
+                        placeholder="Add Title" 
+                        class="form-control"
+                        required
+                    />
                 </div>
                 <!-- description -->
                 <div class="mb-3">
                     <label for="description" class="form-label">Description</label>
-                    <textarea type="text" name="listing[description]" class="form-control"></textarea>
+                    <textarea name="listing[description]" class="form-control" required ></textarea>
                 </div>
                 <!-- img-url -->
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
-                    <input type="text" name="listing[image]" placeholder="Enter Image URL/Link" class="form-control">
+                    <input 
+                        type="text" 
+                        name="listing[image]" 
+                        placeholder="Enter Image URL/Link" 
+                        class="form-control"
+                    />
                 </div>
 
                 <div class="row">
                 <!-- price -->
                 <div class="mb-3 col-md-4">
                     <label for="price" class="form-label">Price</label>
-                    <input type="number" name="listing[price]" placeholder="Enter Price" class="form-control">
+                    <input 
+                        type="number" 
+                        name="listing[price]" 
+                        placeholder="1200" 
+                        class="form-control"
+                        required
+                    />
                 </div>
                 <!-- country -->
                 <div class="mb-3 col-md-8">
                     <label for="country" class="form-label">Country</label>
-                    <input type="text" name="listing[country]" placeholder="Enter Country" class="form-control">
+                    <input 
+                        type="text" 
+                        name="listing[country]" 
+                        placeholder="Bangladesh" 
+                        class="form-control"
+                        required
+                    />
                 </div>
                 </div>
 
                 <!-- location -->
                 <div class="mb-3">
                     <label for="location" class="form-label">Location</label>
-                    <input type="text" name="listing[location]" placeholder="Enter Location" class="form-control">
+                    <input 
+                        type="text" 
+                        name="listing[location]" 
+                        placeholder="Mirpur, Dhaka" 
+                        class="form-control"
+                        required
+                    />
                 </div>
                 <button class="btn btn-dark add-btn mt-3">Add</button>
             </form>
