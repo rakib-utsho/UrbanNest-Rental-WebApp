@@ -95,19 +95,20 @@ app.put("/listings/:id", wrapAsync( async (req, res) => {
 app.delete("/listings/:id", wrapAsync( async (req, res) => {
     let {id} = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
+    // console.log(deletedListing);
     res.redirect("/listings");
 }));
 
 // Handle Errors
 app.all("*", (req, res, next) => {
-    next(new ExpressError(404, "Page not found"));
+    next(new ExpressError(404, "Page not found!"));
 });
 
 // Custom Middleware for handel errors
 app.use((err, req, res, next) => {
     let {statusCode = 500, message = "Something Went Wrong!" } = err;
-    res.status(statusCode).send(message);
+    res.status(statusCode).render("error.ejs", {err});
+    // res.status(statusCode).send(message);
 });
 
 // test route
