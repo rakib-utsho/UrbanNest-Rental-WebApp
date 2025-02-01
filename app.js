@@ -47,17 +47,23 @@ app.get("/listings", async (req, res)=> {
     res.render("listings/index.ejs",{allListings});
 });
 
+
+
 // Create Route
 // Create New sub-route
 app.get("/listings/new", (req, res) => {
     res.render("listings/new.ejs");
 });
 // Create Route
-app.post("/listings", async (req, res) => {
-    // let{title, description, image, price, location, country} = req.body;
-    const newListing = new Listing(req.body.listing);
-    newListing.save();
-    res.redirect("/listings");
+app.post("/listings", async (req, res, next) => {
+    try{
+        // let{title, description, image, price, location, country} = req.body;
+        const newListing = new Listing(req.body.listing);
+        await newListing.save();
+        res.redirect("/listings");
+    }catch(err) {
+        next(err);
+    };
 });
 
 // Show Route
@@ -79,7 +85,7 @@ app.put("/listings/:id", async (req, res) => {
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id, {...req.body.listing});
     res.redirect(`/listings/${id}`);
-})
+});
 
 // Delete Route
 app.delete("/listings/:id", async (req, res) => {
@@ -87,7 +93,12 @@ app.delete("/listings/:id", async (req, res) => {
     let deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
     res.redirect("/listings");
-})
+});
+
+// Custom Middleware for handel errors
+app.use((err, req, res, next) => {
+    res.send("something went wrong!");
+});
 
 // test route
 // app.get("/testlisting", async (req,res)=>{
@@ -102,6 +113,7 @@ app.delete("/listings/:id", async (req, res) => {
 //     console.log("sample was saved");
 //     res.send("successful testing");
 // });
+
  
 
 app.listen(8080, ()=>{
