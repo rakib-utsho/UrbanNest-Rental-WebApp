@@ -10,15 +10,8 @@ const path = require("path");
 // Method Override
 const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate");
-app.engine('ejs', ejsMate);
+const wrapAsync = require("./utils/wrapAsync.js")
 
-
-// set path and others uses
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({extended: true}));
-app.use(methodOverride("_method"));
-app.use(express.static(path.join(__dirname,"/public")));
 
 // Connect MongoDB Database
 const MONGO_URL = "mongodb://127.0.0.1:27017/urbannest";
@@ -33,6 +26,15 @@ main()
 }).catch((err)=>{
     console.log(err);
 });
+
+// set path and others uses
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.urlencoded({extended: true}));
+app.use(methodOverride("_method"));
+app.engine('ejs', ejsMate);
+app.use(express.static(path.join(__dirname,"/public")));
+
 
 
 // REST API Creation
@@ -55,16 +57,13 @@ app.get("/listings/new", (req, res) => {
     res.render("listings/new.ejs");
 });
 // Create Route
-app.post("/listings", async (req, res, next) => {
-    try{
+app.post("/listings", 
+    wrapAsync( async (req, res, next) => {
         // let{title, description, image, price, location, country} = req.body;
         const newListing = new Listing(req.body.listing);
         await newListing.save();
         res.redirect("/listings");
-    }catch(err) {
-        next(err);
-    };
-});
+}));
 
 // Show Route
 app.get("/listings/:id", async (req, res) => {
