@@ -1,14 +1,9 @@
-// Require Express
-const express = require("express");
+const express = require("express"); // Require Express
 const app = express();
-// Require Mongoose
-const mongoose = require("mongoose");
-// Require Model
-const Listing = require("./models/listing.js");
-// Require Path
-const path = require("path");
-// Method Override
-const methodOverride = require("method-override");
+const mongoose = require("mongoose"); // Require Mongoose
+const Listing = require("./models/listing.js"); // Require Model
+const path = require("path"); // Require Path
+const methodOverride = require("method-override"); // Method Override
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
