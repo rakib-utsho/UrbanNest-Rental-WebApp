@@ -15,6 +15,7 @@ const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
 // Express-Session
 const session = require("express-session");
+const flash = require("connect-flash");
 
 // Connect MongoDB Database
 const MONGO_URL = "mongodb://127.0.0.1:27017/urbannest";
@@ -40,6 +41,7 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
+// session - options
 const sessionOptions = {
   secret: "mysupersecretecode",
   resave: false,
@@ -51,15 +53,24 @@ const sessionOptions = {
   },
 };
 
-// use session
-app.use(session(sessionOptions));
-
 // Root Route
 app.get("/", (req, res) => {
   res.send("Root Route");
 });
 
+// use session
+app.use(session(sessionOptions));
+app.use(flash());
+
+// flash message middleware
+app.use((req,res,next) => {
+    res.locals.success = req.flash("success");
+    next();
+})
+
+// listing route
 app.use("/listings", listings);
+// review route
 app.use("/listings/:id/reviews", reviews);
 
 // Handle Errors
