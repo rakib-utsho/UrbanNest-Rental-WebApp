@@ -13,6 +13,8 @@ const ExpressError = require("./utils/ExpressError.js");
 // Require Router routes
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
+// Express-Session
+const session = require("express-session");
 
 // Connect MongoDB Database
 const MONGO_URL = "mongodb://127.0.0.1:27017/urbannest";
@@ -38,7 +40,20 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-// REST API Creation
+const sessionOptions = {
+  secret: "mysupersecretecode",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
+// use session
+app.use(session(sessionOptions));
+
 // Root Route
 app.get("/", (req, res) => {
   res.send("Root Route");
