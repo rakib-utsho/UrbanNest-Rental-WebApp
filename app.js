@@ -8,7 +8,7 @@ const path = require("path");
 // Method Override
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-// Require error handler
+// Require utils
 const ExpressError = require("./utils/ExpressError.js");
 // Express-Session
 const session = require("express-session");
@@ -72,6 +72,11 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+
 
 // flash message middleware
 app.use((req, res, next) => {
