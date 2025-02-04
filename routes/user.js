@@ -5,6 +5,7 @@ const User = require("../models/user.js");
 // error handler
 const wrapAsync = require("../utils/wrapAsync.js");
 const passport = require("passport");
+const { saveRedirectUrl } = require("../middleware.js");
 
 // signup page route
 router.get("/signup", (req, res) => {
@@ -20,8 +21,13 @@ router.post(
       const newUser = new User({ email, username });
       const registerUser = await User.register(newUser, password);
       console.log(registerUser);
-      req.flash("success", "Welcome to UrbanNest!");
-      res.redirect("/listings");
+      req.login(registerUser, (err) => {
+        if (err) {
+          return next(err);
+        }
+        req.flash("success", "Welcome to UrbanNest!");
+        res.redirect("/listings");
+      });
     } catch (err) {
       req.flash("error", err.message);
       res.redirect("/signup");
@@ -36,13 +42,15 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
+  saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
   }),
   async (req, res) => {
-    req.flash("success", "Welcome to UrbanNest!");
-    res.redirect("/listings");
+    req.flash("success", "Welcome back to UrbanNest!");
+    let redirectUrl = res.locals.redirectUrl || "/listings";
+    res.redirect(redirectUrl);
   }
 );
 
