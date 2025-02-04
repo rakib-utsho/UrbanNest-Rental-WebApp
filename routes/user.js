@@ -41,9 +41,19 @@ router.post(
     failureFlash: true,
   }),
   async (req, res) => {
-    res.send("Welcome to UrbanNest!");
+    req.flash("success", "Welcome to UrbanNest!");
+    res.redirect("/listings");
   }
 );
 
+router.get("/logout", (req, res, next) => {
+  req.logOut((err) => {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "You are logged out!");
+    res.redirect("/listings");
+  });
+});
 
 module.exports = router;
