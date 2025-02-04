@@ -11,27 +11,32 @@
       alt="listing_img"
     />
     <div class="card-body">
+      <p class="card-text">Owned by: <em><%= listing.owner.username %></em></p>
+      <p class="card-text"><%= listing.description %></p>
       <p class="card-text">
-        Owned by: <em><%= listing.owner.username %></em>
+        &#2547; <%= listing.price.toLocaleString('en-BD') %> / night
       </p>
-      <p class="card-text"> <%= listing.description %> </p>
-      <p class="card-text">&#2547; <%= listing.price.toLocaleString('en-BD') %> / night</p>
-      <p class="card-text"><%= listing.location %> </p>
+      <p class="card-text"><%= listing.location %></p>
       <p class="card-text"><%= listing.country %></p>
     </div>
   </div>
   <!-- div for buttons -->
+
+  <% if(currUser && currUser._id.equals(listing.owner._id)) {%>
   <div class="btns">
+    <!-- edit button -->
     <a
       href="/listings/<%= listing._id %>/edit"
       class="btn btn-dark col-1 offset-3 edit-btn"
       >Edit</a
     >
-
+    <!-- delete button -->
     <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
       <button class="btn offset-5 btn-danger">Delete</button>
     </form>
   </div>
+  <% } %>
+
   <!-- Review Section -->
   <div class="col-8 offset-3 mb-3">
     <hr />
