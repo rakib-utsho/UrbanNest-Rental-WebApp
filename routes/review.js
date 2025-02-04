@@ -5,17 +5,19 @@ const wrapAsync = require("../utils/wrapAsync.js");
 // model
 const Review = require("../models/review.js");
 const Listing = require("../models/listing.js");
-const {validateReview} = require("../middleware.js");
+const {validateReview, isLoggedIn} = require("../middleware.js");
 
 
 // POST REVIEW ROUTE
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   wrapAsync(async (req, res) => {
     // console.log(req.params.id);
     let listing = await Listing.findById(req.params.id);
     let newReview = new Review(req.body.review);
+    newReview.author = req.user._id;
 
     listing.reviews.push(newReview);
 
