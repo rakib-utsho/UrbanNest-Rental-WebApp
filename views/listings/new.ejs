@@ -1,8 +1,14 @@
 <% layout("/layouts/boilerplate.ejs") %>
-<div class="row mt-3">
+<div class="row mt-3 mb-3">
   <div class="col-8 offset-2">
-    <h3>Add New Listing</h3>
-    <form method="POST" action="/listings" class="needs-validation" novalidate>
+    <h3>Create New Listing</h3>
+    <form
+      method="POST"
+      action="/listings"
+      class="needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
       <!-- title -->
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -25,14 +31,14 @@
         ></textarea>
         <div class="invalid-feedback">Please enter a short description</div>
       </div>
-      <!-- img-url -->
+      <!-- image -->
       <div class="mb-3">
-        <label for="image" class="form-label">Image</label>
+        <label for="image" class="form-label">Upload Image</label>
         <input
-          type="text"
+          type="file"
           name="listing[image]"
-          placeholder="Enter Image URL/Link"
           class="form-control"
+          required
         />
       </div>
 
@@ -68,7 +74,7 @@
         <input
           type="text"
           name="listing[location]"
-          placeholder="Mirpur, Dhaka"
+          placeholder="Dhaka, Bangladesh"
           class="form-control"
           required
         />
