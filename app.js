@@ -69,9 +69,9 @@ const sessionOptions = {
 };
 
 // Root Route
-// app.get("/", (req, res) => {
-//   res.send("Root Route");
-// });
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 // use session
 app.use(session(sessionOptions));
@@ -93,16 +93,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// demo user
-// app.get("/demouser", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "student@gmail.com",
-//     username: "delta student",
-//   });
-
-//   let newUser = await User.register(fakeUser, "helloworld");
-//   res.send(newUser);
-// });
 
 //routers
 app.use("/listings", listingRouter);

@@ -29,6 +29,10 @@ body{
     text-decoration: none;
     color: #222222;
 }
+.f-info-socials a{
+    text-decoration: none;
+    color: #222222;
+}
 
 .f-info-links a:hover{
     text-decoration: underline;
@@ -45,16 +49,14 @@ body{
 
 .f-info-socials i{
     margin-right: 1rem;
-    font-size: 1.5rems;
+    font-size: 1.25rems;
 }
 
 .f-info{
-    text-align: center;
-    height: 8rem;
-    background-color: #ebebeb;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    height: 2rem;
+    background-color: #ebebeb;
+    justify-content: space-around;
     align-items: center;
 }
 /* Footer End */
